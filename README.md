@@ -6,6 +6,10 @@ _For learning about the Unified Cyber Ontology, CASE's parent, see [UCO](https:/
 # RDFDiff
 An RDF and ontology trouble shooter for CASE and UCO.
 
+### CASE / UCO pin
+
+This repository does not target live CASE 1.5.0 or UCO 1.5.0. There is no CASE or UCO version pin here. Treat RDFDiff as an abandoned graph differ, not as a CASE 1.x validator.
+
 ### What it does
 RDFDiff takes output of a tool (JSON/JSON-LD/XML/etc...)
 and attempts to validate it against a RDF based ontology (OWL/N3/ttl).
