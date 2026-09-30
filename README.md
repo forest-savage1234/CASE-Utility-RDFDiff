@@ -14,14 +14,14 @@ for the ontology version used by your application.
 
 ### What it does
 RDFDiff reads an input RDF graph and a glossary using RDFlib. With `--verify`,
-it reports whether each input predicate occurs in the glossary. The `--debug`
-option enters the debugger when a predicate is not found.
+it reports whether the collected input predicates occur in the glossary.
+The `--debug` option enters the debugger when a predicate is not found.
 
 
 ### How it works
-The implementation separates each graph into subject, predicate and object
-lists, excluding triples that contain a blank node. `verify_object_existance`
-then compares each remaining input predicate against all three glossary lists.
+The implementation builds subject, predicate and object lists for each graph.
+`verify_object_existance` compares the collected input predicates against all
+three glossary lists.
 It does not check the input subjects or objects for membership, nor evaluate
 class membership, property ranges or other ontology constraints.
 
