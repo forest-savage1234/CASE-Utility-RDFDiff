@@ -6,28 +6,24 @@ _For learning about the Unified Cyber Ontology, CASE's parent, see [UCO](https:/
 # RDFDiff
 An RDF and ontology trouble shooter for CASE and UCO.
 
-### CASE / UCO pin
+### Validation scope
 
-This repository does not target live CASE 1.5.0 or UCO 1.5.0. There is no CASE or UCO version pin here. Treat RDFDiff as an abandoned graph differ, not as a CASE 1.x validator.
+The `-g` glossary selects the vocabulary for term-membership checks. These checks
+do not run SHACL constraints or establish CASE/UCO conformance. Select a glossary
+for the ontology version used by your application.
 
 ### What it does
-RDFDiff takes output of a tool (JSON/JSON-LD/XML/etc...)
-and attempts to validate it against a RDF based ontology (OWL/N3/ttl).
-Any entry in the tool's output that is NOT in the Ontology (specified via CLI)
-will display an error. CLI arugments can be added to cause a debugger to start
-so you may explore the graph to view where things went wrong.
+RDFDiff reads an input RDF graph and a glossary using RDFlib. With `--verify`,
+it reports whether each input predicate occurs in the glossary. The `--debug`
+option enters the debugger when a predicate is not found.
 
 
 ### How it works
-rdfdiff.py will read in an RDF vocabulary defined via ``` -g``` (glossary) to
-check a custom tool's output against via ```-i```. The Python library rdflib 
-is used to turn the RDF schema into tripples which are then broken into three
-lists; 
-subject, predicate and object. Finally, each element of the tools ouput within
-the tool's subject and predicate are checked againast the glossary's subject 
-and predicate to confirm the existence of these RDF elements. If an element is 
-found or not found it is displayed to the user. BNodes are skipped  as they
-have no appropriate label in RDF and should not be used to verify an ontology.
+The implementation separates each graph into subject, predicate and object
+lists, excluding triples that contain a blank node. `verify_object_existance`
+then compares each remaining input predicate against all three glossary lists.
+It does not check the input subjects or objects for membership, nor evaluate
+class membership, property ranges or other ontology constraints.
 
 
 ### Why not SPARQL?
